@@ -2,7 +2,7 @@ import serial
 import csv
 
 # Open serial port to read data from device (e.g., Arduino) at 115200 baud rate
-ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 print('Listening...')
 
 # Lists to store parsed PATH and OBS data
@@ -25,7 +25,7 @@ try:
         # Split the line by commas to parse data
         parts = line.split(',')
         # If the line is a PATH message with correct number of fields
-        if parts[0] == 'PATH' and len(parts) == 4:
+        if parts[0] == 'PATH' and len(parts) == 5:
             lat = float(parts[1])
             lon = float(parts[2])
             heading = float(parts[3])
@@ -33,7 +33,7 @@ try:
             print(f'PATH: lat={lat}, lon={lon}, heading={heading}')
 
         # If the line is an OBS message with correct number of fields
-        elif parts[0] == 'OBS' and len(parts) == 5:
+        elif parts[0] == 'OBS' and len(parts) == 6:
             lat = float(parts[1])
             lon = float(parts[2])
             heading = float(parts[3])

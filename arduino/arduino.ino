@@ -5,7 +5,6 @@
 
 #include "gps.h"
 #include "compass.h"
-#include "lora_comm.h"
 #include "ultrasonic.h"
 #include "constants.h"
 
@@ -24,7 +23,6 @@ void setup() {
   Serial.begin(9600);
   initUltrasonic();
   initCompass();
-  initLoRa();
   initGPS();
 }
 
@@ -32,21 +30,15 @@ void setup() {
  * @brief Arduino main loop. Handles GPS logging and obstacle detection.
  */
 void loop() {
-  // GPS Path Logging:
   String msg;
-  while(ss.available() > 0) {
+  while (ss.available() > 0) {
     if (gps.encode(ss.read())) {
-      if (millis() - lastPathSent > PATH_INTERVAL) {
-        if (logPathPoint(msg)) {
-          msg += "," + String(packetNo++);
-          sendMessage(msg);
-          lastPathSent = millis();
-        }
+      if (logPathPoint(msg)) {
+        msg += "," + String(packetNo++);
+        Serial.println(msg);
       }
     }
   }
-
-  // Obstacle Detection Logic:
   float distance = measureDistance();
 
   if ((distance < MAX_OBS_DISTANCE) && (distance > MIN_OBS_DISTANCE)) {
@@ -56,17 +48,13 @@ void loop() {
     float third_reading = measureDistance();
 
     if ((second_reading <= MAX_OBS_DISTANCE && second_reading >= MIN_OBS_DISTANCE) && (third_reading <= MAX_OBS_DISTANCE && third_reading >= MIN_OBS_DISTANCE)) {
-      if (millis() - lastObsSent > OBS_INTERVAL) {
-        int heading = readCompass();
-        String obsMsg = "OBS," + String(gps.location.lat(), 6) + "," +
+      int heading = readCompass();
+      String obsMsg = "OBS," + String(gps.location.lat(), 6) + "," +
                       String(gps.location.lng(), 6) + "," +
                       String(heading) + "," +
                       String((second_reading + third_reading) / 2.0, 2) + "," +
                       String(packetNo++);
-        
-        sendMessage(obsMsg);
-        lastObsSent = millis();
-      }
+      Serial.println(obsMsg);
     }
   }
 }

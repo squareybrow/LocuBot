@@ -14,13 +14,13 @@ constexpr unsigned long PULSE_TIMEOUT = 12000;
 /** @brief Magnetic declination angle (radians) */
 constexpr float declinationAngle = 0.009;
 /** @brief Minimum X value for compass calibration */
-constexpr float x_min = -25.91;
+constexpr float x_min = -27.64;
 /** @brief Maximum X value for compass calibration */
-constexpr float x_max = 41.18;
+constexpr float x_max = 43.36;
 /** @brief Minimum Y value for compass calibration */
-constexpr float y_min = -48.09;
+constexpr float y_min = -47.82;
 /** @brief Maximum Y value for compass calibration */
-constexpr float y_max = 21.27;
+constexpr float y_max = 24.36;
 
 /** @brief Minimum obstacle detection distance (cm) */
 constexpr int MIN_OBS_DISTANCE = 15;

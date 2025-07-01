@@ -18,6 +18,8 @@ desktop.ini
 *.user
 *.pidb
 *.booproj
+*.shader
+*.hlsl
 
 *.stacktrace
 

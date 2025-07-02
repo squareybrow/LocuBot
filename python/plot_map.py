@@ -70,6 +70,12 @@ with open('estimated_data.csv', 'w', newline='') as file:
 
 plt.figure(figsize=(14, 10))  # Create a larger figure for better visibility
 
+# Mark the start and end points
+plt.scatter(path_easting[0], path_northing[0], c='blue', marker='o', s=100, label='Start')
+plt.annotate('Start', (path_easting[0], path_northing[0]), textcoords="offset points", xytext=(0,10), ha='center', fontsize=10)
+plt.scatter(path_easting[-1], path_northing[-1], c='red', marker='o', s=100, label='End')
+plt.annotate('End', (path_easting[-1], path_northing[-1]), textcoords="offset points", xytext=(0,10), ha='center', fontsize=10)
+
 # Plot the robot's path as a dashed green line with circle markers
 plt.plot(path_easting, path_northing, c='green', marker='o', linestyle='dashed',
          label='Path', markersize=4, zorder=1)

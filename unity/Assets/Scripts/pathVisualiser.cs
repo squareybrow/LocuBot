@@ -16,6 +16,8 @@ public class pathVisualiser : MonoBehaviour
     private List<float> headings = new List<float>();
     private Vector2 referencePoint;
     private float scale = 1e5f;
+    private List<GameObject> obstacleArrows = new List<GameObject>();
+    private List<bool> arrowRevealed = new List<bool>();
     LineRenderer dynamicLine;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,7 +32,7 @@ public class pathVisualiser : MonoBehaviour
         }
 
         loadPathCSV("path_data");
-        loadObsCSV("estimated_data");
+        loadObsCSV("obs_data");
 
         dynamicLine = bot.AddComponent<LineRenderer>();
         dynamicLine.positionCount = 0;
@@ -68,7 +70,7 @@ public class pathVisualiser : MonoBehaviour
 
         for (int i = 1; i < line.Length; i++)
         {
-            string[] values = line[i].Split(',');
+            string[] values = line[i].Trim().Split(',');
             if (values.Length < 3)
             {
                 continue;
@@ -76,17 +78,17 @@ public class pathVisualiser : MonoBehaviour
 
             float lat = float.Parse(values[0]);
             float lon = float.Parse(values[1]);
-            float heading = 90.0f - float.Parse(values[2]);
+            float heading = float.Parse(values[2]);
 
             if (i == 1)
             {
-                referencePoint = new Vector2(lat, lon);
+                referencePoint = new Vector2(lon, lat);
             }
 
-            float x = (lat - referencePoint.x) * scale;
-            float y = (lon - referencePoint.y) * scale;
+            float x = (lon - referencePoint.x) * scale;
+            float y = (lat - referencePoint.y) * scale;
 
-            pathPoints.Add(new Vector2(x, y));
+            pathPoints.Add(new Vector2(x, y)); //Test : lon vs lat instead of lat vs lon
             headings.Add(heading);
         }
     }
@@ -98,7 +100,7 @@ public class pathVisualiser : MonoBehaviour
 
         for (int i = 1; i < line.Length; i++)
         {
-            string[] values = line[i].Split(',');
+            string[] values = line[i].Trim().Split(',');
             if (values.Length < 4)
             {
                 continue;
@@ -108,20 +110,26 @@ public class pathVisualiser : MonoBehaviour
             float lon = float.Parse(values[1]);
             float heading = float.Parse(values[2]);
 
-            float x = (lat - referencePoint.x) * scale;
-            float y = (lon - referencePoint.y) * scale;
-            Vector2 obsPoint = new Vector2(x, y);
+            Debug.Log($"OBS Parsed: lat={lat}, lon={lon}, heading={heading}");
+
+            float x = (lon - referencePoint.x) * scale;
+            float y = (lat - referencePoint.y) * scale;
+            Vector2 obsPoint = new Vector2(x, y); //Test : lon vs lat instead of lat vs lon
             obsPoints.Add(obsPoint);
 
             GameObject arrow = Instantiate(headingArrowPrefab, obsPoint, Quaternion.identity);
             arrow.transform.rotation = Quaternion.Euler(0, 0, heading);
             arrow.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
 
+            arrow.SetActive(false);
+            obstacleArrows.Add(arrow);
+            arrowRevealed.Add(false);
+
         }
     }
     IEnumerator MoveBotAlongPath()
     {
-        float speed = 2f;
+        float speed = 5f;
 
         while (currentIndex < pathPoints.Count - 1)
         {
@@ -132,6 +140,7 @@ public class pathVisualiser : MonoBehaviour
             while (t < 1f)
             {
                 Vector2 currentPos = Vector2.Lerp(start, end, t);
+                bot.transform.localScale = new Vector3(2.5f, 2.5f, 1f);
                 bot.transform.position = currentPos;
                 bot.transform.rotation = Quaternion.Euler(0, 0, -headings[currentIndex]);
 
@@ -139,11 +148,25 @@ public class pathVisualiser : MonoBehaviour
                 dynamicLine.positionCount++;
                 dynamicLine.SetPosition(dynamicLine.positionCount - 1, currentPos);
 
+                for (int i = 0; i < obsPoints.Count; i++)
+                {
+                    if (!arrowRevealed[i])
+                    {
+                        float distance = Vector2.Distance(bot.transform.position, obsPoints[i]);
+                        if (distance < 0.05f)
+                        {
+                            obstacleArrows[i].SetActive(true);
+                            arrowRevealed[i] = true;
+                        }
+                    }
+                }
+
                 t += Time.deltaTime * speed;
                 yield return null;
             }
 
             currentIndex++;
         }
+
     }
  }

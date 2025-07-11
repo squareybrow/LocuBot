@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project integrates **GPS**, **Compass (HMC5883)**, **LoRa communication**, and **Ultrasonic sensors** to create a modular navigation and obstacle detection system for Arduino-compatible boards. It logs GPS path points, detects obstacles, and transmits data wirelessly via LoRa.
+This project integrates **GPS**, **Compass (HMC5883)**, **LoRa communication**, and **Ultrasonic sensors** to create a modular navigation and obstacle detection system using Arduino MEGA 2560. It logs GPS path points, detects obstacles, and transmits data wirelessly via LoRa.
 
 ---
 
@@ -18,12 +18,11 @@ This project integrates **GPS**, **Compass (HMC5883)**, **LoRa communication**, 
 
 ## Hardware Requirements
 
-- Arduino-compatible board (e.g., Uno, Mega)
-- GPS module (e.g., NEO-6M)
+- Arduino Mega
+- GPS module (NEO-6M)
 - HMC5883L Compass module
-- LoRa module (e.g., SX1278)
-- Ultrasonic sensor (e.g., HC-SR04)
-- Jumper wires, breadboard, and power supply
+- LoRa module (SX1278)
+- Ultrasonic sensor (HC-SR04)
 
 ---
 
@@ -33,28 +32,39 @@ See [`pins.h`](pins.h):
 
 | Module      | Pin Name   | Arduino Pin |
 |-------------|------------|-------------|
-| GPS         | RX         | 7           |
-| GPS         | TX         | 6           |
-| LoRa        | SS         | 10          |
-| LoRa        | RST        | 9           |
-| LoRa        | DIO0       | 3           |
-| Ultrasonic  | TRIG       | 5           |
-| Ultrasonic  | ECHO       | 4           |
+| GPS         | RX         | Serial1(18) |
+| GPS         | TX         | Serial1(19) |
+| LoRa        | NSS        | 53          |
+| LoRa        | RST        | 49          |
+| LoRa        | DIO0       | 2           |
+| Ultrasonic  | TRIG       | 7           |
+| Ultrasonic  | ECHO       | 6           |
+
+---
+
+## Circuit Wiring Diagram
+![Wiring Diagram](circuit.png)
 
 ---
 
 ## Message Formats
 
 - **Path Message:**  
-  `PATH,<lat>,<lon>,<heading>,<packetNo>`
+  `PATH,<lat>,<lon>,<heading>,<packetNo>`  
+  - `lat`: Latitude  
+  - `lon`: Longitude  
+  - `heading`: Compass heading  
+  - `packetNo`: Message sequence number
+
 - **Obstacle Message:**  
-  `OBS,<lat>,<lon>,<heading>,<distance>,<packetNo>`
+  `OBS,<lat>,<lon>,<heading>,<distance>,<packetNo>`  
+  - `distance`: Distance to obstacle
 
 ---
 
 ## File Structure
 
-- `nav_comm.ino` — Main Arduino sketch
+- `arduino.ino` — Main Arduino sketch
 - `gps.h` / `gps.cpp` — GPS interface and logging
 - `compass.h` / `compass.cpp` — Compass initialization and heading calculation
 - `lora_comm.h` / `lora_comm.cpp` — LoRa initialization and message sending
@@ -67,10 +77,16 @@ See [`pins.h`](pins.h):
 ## Usage
 
 1. **Wire all modules** according to the pin assignments above.
-2. **Install required libraries** in the Arduino IDE:
-   - [TinyGPS++](https://github.com/mikalhart/TinyGPSPlus)
-   - [Adafruit HMC5883 Unified](https://github.com/adafruit/Adafruit_HMC5883_Unified)
-   - [LoRa](https://github.com/sandeepmistry/arduino-LoRa)
+2. **Install required libraries** in the Arduino IDE (via Library Manager or links below):
+    - [Arduino.h](https://www.arduino.cc/en/Reference/Arduino)
+    - [Wire.h](https://www.arduino.cc/en/Reference/Wire)
+    - [Adafruit_Sensor.h](https://github.com/adafruit/Adafruit_Sensor)
+    - [Adafruit_HMC5883_U.h](https://github.com/adafruit/Adafruit_HMC5883_Unified)
+    - [TinyGPS++.h](https://github.com/mikalhart/TinyGPSPlus)
+    - [LoRa.h](https://github.com/sandeepmistry/arduino-LoRa)
+    - [Crypto.h](https://rweather.github.io/arduinolibs/crypto.html)
+    - [AES.h](https://rweather.github.io/arduinolibs/aes.html)
+    - [SPI.h](https://www.arduino.cc/en/Reference/SPI)
 3. **Upload** the project to your Arduino board.
 4. **Open the Serial Monitor** to view status and sent messages.
 5. **Monitor LoRa receiver** for incoming path and obstacle messages.
@@ -81,12 +97,6 @@ See [`pins.h`](pins.h):
 
 - Adjust obstacle detection thresholds and message intervals in `constants.h`.
 - Modify message formats or add new sensors as needed.
-
----
-
-## License
-
-MIT License.  
-See [LICENSE](LICENSE) for details.
+- Change pin layouts in `pins.h`
 
 ---

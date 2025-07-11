@@ -6,35 +6,48 @@ This folder contains Python scripts for logging, processing, analyzing, and visu
 
 ## Features
 
-- **Serial Data Logging:** Capture real-time GPS and obstacle data from a microcontroller via serial port and save to CSV.
+- **Serial Data Logging:** Capture real-time GPS and obstacle data from a microcontroller (Arduino MEGA) via serial port and save to CSV.
 - **Parse and filter GPS path and obstacle data from CSV files.**
 - **Estimate obstacle positions using heading and distance.**
 - **Visualize bot trajectory and obstacle locations in both absolute (UTM) and relative coordinates.**
-- **Generate publication-quality plots for analysis.**
+- **Generate 2D plots for analysis.**
 
 ---
 
 ## File Overview
 
-- **log_serial_data.py**  
-  - Connects to a serial port (default `/dev/ttyACM0`, change as needed for your system).
-  - Listens for incoming messages in the format:
-    - `PATH,<lat>,<lon>,<heading>`
-    - `OBS,<lat>,<lon>,<heading>,<distance>`
-  - Writes all received lines to `backup.txt` for redundancy.
-  - Saves parsed path data to `path_data.csv` and obstacle data to `obs_data.csv` upon exit (Ctrl+C).
+- **scripts/**  
+  - **log_serial_data.py**  
+    - Connects to a serial port (default `/dev/ttyACM0`, change as needed for your system).
+    - Listens for incoming messages in the format (See [Arduino](\arduino)):
+      - `PATH,<lat>,<lon>,<heading>`
+      - `OBS,<lat>,<lon>,<heading>,<distance>`
+    - Writes all received lines to `backup.txt` for redundancy.
+    - Saves parsed path data to `path_data.csv` and obstacle data to `obs_data.csv` upon exit (Ctrl+C or interrupt).
 
-- **plot_map.py**  
-  - Reads `path_data.csv` and `obs_data.csv`.
-  - Converts all coordinates to UTM (meters) for accurate distance representation.
-  - Estimates obstacle positions in UTM coordinates using heading and distance.
-  - Plots both:
-    - **Absolute trajectory:** Path and obstacles in UTM coordinates (`trajectory_absolute.png`)
-    - **Relative trajectory:** Path and obstacles relative to the start point (`trajectory_relative.png`)
-  - Visualizes heading directions for both path and obstacles.
-  - Draws dotted lines from the bot to each estimated obstacle position.
-  - Outputs estimated obstacle positions to `estimated_data.csv`.
+  - **plot_map.py**  
+    - Reads `path_data.csv` and `obs_data.csv`.
+    - Converts all coordinates to UTM (meters) for accurate distance representation.
+    - Estimates obstacle positions in UTM coordinates using heading and distance.
+    - Plots both:
+      - **Absolute trajectory:** Path and obstacles in UTM coordinates (`trajectory_absolute.png`)
+      - **Relative trajectory:** Path and obstacles relative to the start point (`trajectory_relative.png`)
+    - Visualizes heading directions for both path and obstacles.
+    - Draws dotted lines from the bot to each estimated obstacle position.
+    - Outputs estimated obstacle positions to `estimated_data.csv`.
 
+  - **log_serial_data.py** 
+    - Saves all data received from microcontroller in a .txt file as a failsafe.
+
+- **data/**  
+  - [Estimated Data](data\estimated_data.csv): Logs obstacle points estimated from gps, magnetometer and ultrasonic data.
+  - [Observed Data](data\obs_data.csv): Logs path points with distance to obstacle as given by gps, magnetometer and ultrasonic.
+  - [path Data](data\path_data.csv): Logs path data as recived fom gps and magnetometer.
+
+- **outputs/**  
+  - [Absolute Trajectory](outputs\trajectory_absolute.png)
+  - [Relative Trajectory](outputs\trajectory_relative.png)
+  
 ---
 
 ## Data Format
@@ -53,6 +66,13 @@ Both scripts expect or generate the following CSV files:
   ```
   Latitude,Longitude,Heading,Distance
   12.9716,77.5946,180,150
+  ...
+  ```
+
+- **estimated_data.csv**
+  ```
+  Easting (m),Northing (m),Heading (°),Distance (cm)
+  123456.7,765432.1,180,150
   ...
   ```
 
@@ -102,9 +122,11 @@ Both scripts expect or generate the following CSV files:
 ## Example Output
 
 - `trajectory_absolute.png` — Path and obstacles in UTM meters.
-- `trajectory_relative.png` — Path and obstacles relative to the start point.
-- `estimated_data.csv` — Estimated obstacle positions in UTM coordinates.
+  ![Absolute Plot](outputs\trajectory_absolute.png)
 
+- `trajectory_relative.png` — Path and obstacles relative to the start point.
+  ![Relative Plot](outputs\trajectory_relative.png)
+  
 ---
 
 ## Requirements
@@ -122,11 +144,5 @@ Both scripts expect or generate the following CSV files:
 - Adjust plotting parameters (colors, markers, skip intervals) in `plot_map.py` as needed.
 - Change the serial port and baud rate in `log_serial_data.py` to match your hardware.
 - Extend the scripts to support additional sensors or data fields.
-
----
-
-## License
-
-MIT License
 
 ---

@@ -195,9 +195,3 @@ Both scripts expect or generate the following CSV files:
 - Extend the scripts to support additional sensors or data fields.
 
 ---
-
-## License
-
-MIT License
-
----

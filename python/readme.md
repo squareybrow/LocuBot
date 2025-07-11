@@ -19,7 +19,7 @@ This folder contains Python scripts for logging, processing, analyzing, and visu
 - **scripts/**  
   - **log_serial_data.py**  
     - Connects to a serial port (default `/dev/ttyACM0`, change as needed for your system).
-    - Listens for incoming messages in the format (See [Arduino](\arduino)):
+    - Listens for incoming messages in the format (See [Arduino](/arduino)):
       - `PATH,<lat>,<lon>,<heading>`
       - `OBS,<lat>,<lon>,<heading>,<distance>`
     - Writes all received lines to `backup.txt` for redundancy.
@@ -40,13 +40,13 @@ This folder contains Python scripts for logging, processing, analyzing, and visu
     - Saves all data received from microcontroller in a .txt file as a failsafe.
 
 - **data/**  
-  - [Estimated Data](data\estimated_data.csv): Logs obstacle points estimated from gps, magnetometer and ultrasonic data.
-  - [Observed Data](data\obs_data.csv): Logs path points with distance to obstacle as given by gps, magnetometer and ultrasonic.
-  - [path Data](data\path_data.csv): Logs path data as recived fom gps and magnetometer.
+  - [Estimated Data](data/estimated_data.csv): Logs obstacle points estimated from gps, magnetometer and ultrasonic data.
+  - [Observed Data](data/obs_data.csv): Logs path points with distance to obstacle as given by gps, magnetometer and ultrasonic.
+  - [path Data](data/path_data.csv): Logs path data as recived fom gps and magnetometer.
 
 - **outputs/**  
-  - [Absolute Trajectory](outputs\trajectory_absolute.png)
-  - [Relative Trajectory](outputs\trajectory_relative.png)
+  - [Absolute Trajectory](outputs/trajectory_absolute.png)
+  - [Relative Trajectory](outputs/trajectory_relative.png)
   
 ---
 
@@ -122,10 +122,10 @@ Both scripts expect or generate the following CSV files:
 ## Example Output
 
 - `trajectory_absolute.png` — Path and obstacles in UTM meters.
-  ![Absolute Plot](outputs\trajectory_absolute.png)
+  ![Absolute Plot](outputs/trajectory_absolute.png)
 
 - `trajectory_relative.png` — Path and obstacles relative to the start point.
-  ![Relative Plot](outputs\trajectory_relative.png)
+  ![Relative Plot](outputs/trajectory_relative.png)
   
 ---
 

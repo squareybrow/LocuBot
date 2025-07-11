@@ -36,7 +36,7 @@ This folder contains Python scripts for logging, processing, analyzing, and visu
     - Draws dotted lines from the bot to each estimated obstacle position.
     - Outputs estimated obstacle positions to `estimated_data.csv`.
 
-  - **log_serial_data.py** 
+  - **log_serial_backup.py** 
     - Saves all data received from microcontroller in a .txt file as a failsafe.
 
 - **data/**  
@@ -98,7 +98,7 @@ Both scripts expect or generate the following CSV files:
 
 1. **Install dependencies:**
    ```sh
-   pip install numpy matplotlib utm pyserial
+   pip install -r requirements.txt
    ```
 
 2. **Log data from your bot:**
@@ -132,10 +132,11 @@ Both scripts expect or generate the following CSV files:
 ## Requirements
 
 - Python 3.x
-- numpy
-- matplotlib
-- utm
-- pyserial (for serial logging)
+- All dependencies listed in [requirements.txt](requirements.txt)
+  - numpy
+  - matplotlib
+  - utm
+  - pyserial (for serial logging)
 
 ---
 

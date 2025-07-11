@@ -1,26 +1,24 @@
 #ifndef PINS_H
 #define PINS_H
 
+//Uses Arduino MEGA 2560
+
 /**
  * @file pins.h
  * @brief Pin assignments for GPS, LoRa, and Ultrasonic modules.
  */
-
-/** @brief GPS module RX pin */
-constexpr uint8_t GPS_RX = 7;
-/** @brief GPS module TX pin */
-constexpr uint8_t GPS_TX = 6;
+#define GPS_SERIAL Serial1 // RX 18, TX 19
 
 /** @brief LoRa module Slave Select pin */
-constexpr uint8_t LoRa_SS = 10;
+constexpr uint8_t LoRa_SS = 53;
 /** @brief LoRa module Reset pin */
-constexpr uint8_t LoRa_RST = 9;
+constexpr uint8_t LoRa_RST = 49;
 /** @brief LoRa module DIO0 pin */
-constexpr uint8_t LoRa_DIO0 = 3;
+constexpr uint8_t LoRa_DIO0 = 2;
 
 /** @brief Ultrasonic sensor trigger pin */
-constexpr uint8_t TRIG_PIN = 5;
+constexpr uint8_t TRIG_PIN = 14;
 /** @brief Ultrasonic sensor echo pin */
-constexpr uint8_t ECHO_PIN = 4;
+constexpr uint8_t ECHO_PIN = 15;
 
 #endif

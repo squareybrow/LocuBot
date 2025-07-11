@@ -3,17 +3,18 @@
 
 #include <Arduino.h>
 #include <TinyGPS++.h>
-#include <SoftwareSerial.h>
+#include "pins.h"  // must define: #define GPS_SERIAL Serial1
 
 /**
  * @file gps.h
- * @brief Interface for GPS module.
+ * @brief Interface for GPS module (Mega version).
  */
 
 /** @brief Global GPS object */
 extern TinyGPSPlus gps;
-/** @brief Software serial for GPS communication */
-extern SoftwareSerial ss;
+
+/** @brief Reference to Mega hardware serial for GPS */
+#define ss GPS_SERIAL
 
 /**
  * @brief Initializes the GPS module.

@@ -12,7 +12,7 @@
  */
 
 AES128 aes;
-byte key[16] = {'s','e','c','r','e','t','k','e','y','1','2','3','4','5','6','7'};
+byte key[16] = {'s','e','c','r','e','t','k','e','y','1','2','3','4','5','6','7'}; //AES key, requires to be same on both encryption and decryption
 
 
 void initLoRa() {
@@ -22,11 +22,11 @@ void initLoRa() {
         while (true);
     }
 
-    LoRa.setSpreadingFactor(12);
+    LoRa.setSpreadingFactor(12); //Highest range setting
     LoRa.setSignalBandwidth(125E3);
-    LoRa.setCodingRate4(8);
-    LoRa.setSyncWord(0x34);
-    LoRa.enableCrc();
+    LoRa.setCodingRate4(8); //Highest error correction
+    LoRa.setSyncWord(0x34); //Pair word to ensure transmission between transmitter and receiver only
+    LoRa.enableCrc(); //Receives confirmation to ensure packets aren't lost
 
     aes.setKey(key, sizeof(key));
     Serial.println("LoRa + AES Sender Ready");

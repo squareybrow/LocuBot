@@ -25,7 +25,7 @@ float measureDistance() {
   long ping_travel_time;
 
   ping_travel_time = pulseIn(ECHO_PIN, HIGH, PULSE_TIMEOUT); // timeout
-  if (ping_travel_time == 0) return 999;  // Signal no reading
+  if (ping_travel_time == 0) return 999;  // No signal reading
 
   float time = (ping_travel_time / 1E6) / 2;
   float distance = SOUND_SPEED * time * 100;

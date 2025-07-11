@@ -1,23 +1,15 @@
 #include <Arduino.h>
 #include <TinyGPS++.h>
-#include <SoftwareSerial.h>
 #include "gps.h"
 #include "compass.h"
 #include "constants.h"
-#include "pins.h"
+#include "pins.h"  // has: #define GPS_SERIAL Serial1
 
-/**
- * @brief Global GPS object.
- */
 TinyGPSPlus gps;
-/**
- * @brief Software serial for GPS communication.
- */
-SoftwareSerial ss(GPS_RX, GPS_TX);
 
-/**
- * @brief Initializes the GPS module.
- */
+// Use Serial1 (Mega) instead of SoftwareSerial
+#define ss GPS_SERIAL
+
 void initGPS() {
     ss.begin(9600);
 }

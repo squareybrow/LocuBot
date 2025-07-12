@@ -17,8 +17,8 @@ constexpr uint8_t LoRa_RST = 49;
 constexpr uint8_t LoRa_DIO0 = 2;
 
 /** @brief Ultrasonic sensor trigger pin */
-constexpr uint8_t TRIG_PIN = 14;
+constexpr uint8_t TRIG_PIN = 40;
 /** @brief Ultrasonic sensor echo pin */
-constexpr uint8_t ECHO_PIN = 15;
+constexpr uint8_t ECHO_PIN = 41;
 
 #endif

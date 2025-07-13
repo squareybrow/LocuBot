@@ -37,8 +37,8 @@ See [`pins.h`](pins.h):
 | LoRa        | NSS        | 53          |
 | LoRa        | RST        | 49          |
 | LoRa        | DIO0       | 2           |
-| Ultrasonic  | TRIG       | 7           |
-| Ultrasonic  | ECHO       | 6           |
+| Ultrasonic  | TRIG       | 40          |
+| Ultrasonic  | ECHO       | 41          |
 
 ---
 

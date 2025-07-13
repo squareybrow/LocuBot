@@ -42,7 +42,7 @@ This folder contains Python scripts for logging, processing, analyzing, and visu
 - **data/**  
   - [Estimated Data](data/estimated_data.csv): Logs obstacle points estimated from gps, magnetometer and ultrasonic data.
   - [Observed Data](data/obs_data.csv): Logs path points with distance to obstacle as given by gps, magnetometer and ultrasonic.
-  - [path Data](data/path_data.csv): Logs path data as recived fom gps and magnetometer.
+  - [Path Data](data/path_data.csv): Logs path data as recived fom gps and magnetometer.
 
 - **outputs/**  
   - [Absolute Trajectory](outputs/trajectory_absolute.png)

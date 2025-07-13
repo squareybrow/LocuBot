@@ -10,7 +10,6 @@
 7. [Usage Guide](#usage-guide)
 8. [API Reference](#api-reference)
 9. [Troubleshooting](#troubleshooting)
-10. [Contributing](#contributing)
 
 ---
 

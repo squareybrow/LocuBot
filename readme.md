@@ -849,9 +849,7 @@ project/
 ├── arduino/          # Firmware code
 ├── python/           # Data processing scripts
 ├── unity/            # Visualization project
-├── docs/             # Documentation
-├── tests/            # Unit tests
-└── examples/         # Usage examples
+└── docs/             # Documentation
 ```
 
 ---

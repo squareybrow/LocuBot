@@ -101,7 +101,7 @@ Arduino Mega 2560
     ├── SDA → Pin 20
     └── SCL → Pin 21
 ```
-![Wiring Diagram](arduino/circuit.png)
+![Wiring Diagram](docs/circuit.png)
 
 ---
 

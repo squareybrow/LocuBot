@@ -43,7 +43,7 @@ See [`pins.h`](pins.h):
 ---
 
 ## Circuit Wiring Diagram
-![Wiring Diagram](circuit.png)
+![Wiring Diagram](../docs/circuit.png)
 
 ---
 

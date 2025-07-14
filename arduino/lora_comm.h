@@ -6,23 +6,16 @@
 #include <Crypto.h>
 #include <AES.h>
 
-/**
- * @file lora_comm.h
- * @brief Interface for LoRa communication.
- */
+// AES cipher and key used for encrypting messages before transmission
+extern AES128 aes;
+extern byte key[16];
 
- extern AES128 aes;
- extern byte key[16];
-/**
- * @brief Initializes the LoRa module.
- */
+// Initialize LoRa module and AES encryption
+// Sets radio parameters for long range and reliability
 void initLoRa();
 
-/**
- * @brief Sends a message via LoRa.
- * @param msg Message to send.
- * @return true if sent.
- */
+// Encrypts the message using AES and sends it via LoRa
+// Pads the message to 16 bytes, encrypts each block, then transmits
 bool sendMessage(const String& msg);
 
 #endif

@@ -1,5 +1,19 @@
 # GPS Bot Mapper System - Complete Documentation
 
+## Table of Contents
+1. [Documentation Map](#documentation-map)
+2. [System Overview](#system-overview)
+3. [Hardware Components](#hardware-components)
+4. [Arduino Firmware](#arduino-firmware)
+5. [Python Data Processing](#python-data-processing)
+6. [Unity Visualization](#unity-visualization)
+7. [Installation & Setup](#installation--setup)
+8. [Usage Guide](#usage-guide)
+9. [API Reference](#api-reference)
+10. [Troubleshooting](#troubleshooting)
+
+---
+
 ## Documentation Map
 
 - [System Architecture (Arduino)](docs/system_architecture.md)
@@ -11,17 +25,6 @@
     - [LoRa Protocol](docs/lora_protocol.md)
     - [Compass Implementation](docs/compass_implementation.md)
     - [Obstacle Detection](docs/obstacle_detection.md)
-
-## Table of Contents
-1. [System Overview](#system-overview)
-2. [Hardware Components](#hardware-components)
-3. [Arduino Firmware](#arduino-firmware)
-4. [Python Data Processing](#python-data-processing)
-5. [Unity Visualization](#unity-visualization)
-6. [Installation & Setup](#installation--setup)
-7. [Usage Guide](#usage-guide)
-8. [API Reference](#api-reference)
-9. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -58,14 +61,14 @@ The GPS Bot Mapper is a comprehensive autonomous navigation and obstacle detecti
 ## Hardware Components
 
 ### Required Components
-| Component | Model | Purpose | Quantity |
-|-----------|-------|---------|----------|
-| Microcontroller | Arduino Mega 2560 | Main processing unit | 1 |
-| GPS Module | NEO-6M | Position tracking | 1 |
-| Compass | HMC5883L | Heading determination | 1 |
-| LoRa Module | SX1278 (433MHz) | Wireless communication | 1 |
-| Ultrasonic Sensor | HC-SR04 | Obstacle detection | 1 |
-| Power Supply | Battery/DC adapter | System power | 1 |
+| Component         | Model              | Purpose                |
+|-------------------|--------------------|------------------------|
+| Microcontroller   | Arduino Mega 2560  | Main processing unit   |
+| GPS Module        | NEO-6M             | Position tracking      |
+| Compass           | HMC5883L           | Heading determination  |
+| LoRa Module       | SX1278 (433MHz)    | Wireless communication |
+| Ultrasonic Sensor | HC-SR04            | Obstacle detection     |
+| Power Supply      | Battery/DC adapter | System power           |
 
 ### Pin Configuration (Arduino Mega 2560)
 ```cpp
@@ -280,6 +283,7 @@ def parse_message(line):
             'distance': float(parts[4]),
             'packet_no': int(parts[5])
         }
+    return None
 ```
 
 #### CSV Output Format
@@ -677,14 +681,16 @@ float measureDistance()
 ### Python Functions
 
 #### Data Logging
+
 ```python
-def parse_message(line):
-    """Parse incoming serial message"""
-    # Returns dictionary with parsed data
+def parse_message():
+  """Parse incoming serial message"""
+  # Returns dictionary with parsed data
+
 
 def save_to_csv(data, filename):
-    """Save data list to CSV file"""
-    # Handles CSV writing with headers
+  """Save data list to CSV file"""
+  # Handles CSV writing with headers
 ```
 
 #### Visualization

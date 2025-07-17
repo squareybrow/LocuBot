@@ -26,7 +26,7 @@ This project integrates **GPS**, **Compass (HMC5883)**, **LoRa communication**, 
 
 ---
 
-## Pin Assignments
+## Pin Configuration (Arduino Mega 2560)
 
 See [`pins.h`](pins.h):
 
@@ -40,24 +40,67 @@ See [`pins.h`](pins.h):
 | Ultrasonic  | TRIG       | 40          |
 | Ultrasonic  | ECHO       | 41          |
 
----
 
-## Circuit Wiring Diagram
+```cpp
+// GPS Module
+#define GPS_SERIAL Serial1    // RX: Pin 19, TX: Pin 18
+
+// LoRa Module
+#define LoRa_SS   53         // Slave Select
+#define LoRa_RST  49         // Reset
+#define LoRa_DIO0 2          // Digital I/O 0
+
+// Ultrasonic Sensor
+#define TRIG_PIN  40         // Trigger
+#define ECHO_PIN  41         // Echo
+
+// Compass (I2C)
+// SDA: Pin 20, SCL: Pin 21 (default I2C pins)
+```
+
+### Circuit Connections
+```
+Arduino Mega 2560
+├── GPS Module (NEO-6M)
+│   ├── VCC → 5V
+│   ├── GND → GND
+│   ├── RX → Pin 18 (TX1)
+│   └── TX → Pin 19 (RX1)
+├── LoRa Module (SX1278)
+│   ├── VCC → 3.3V
+│   ├── GND → GND
+│   ├── NSS → Pin 53
+│   ├── RST → Pin 49
+│   ├── DIO0 → Pin 2
+│   ├── MOSI → Pin 51
+│   ├── MISO → Pin 50
+│   └── SCK → Pin 52
+├── Ultrasonic Sensor (HC-SR04)
+│   ├── VCC → 5V
+│   ├── GND → GND
+│   ├── Trig → Pin 40
+│   └── Echo → Pin 41
+└── Compass (HMC5883L)
+    ├── VCC → 5V
+    ├── GND → GND
+    ├── SDA → Pin 20
+    └── SCL → Pin 21
+```
 ![Wiring Diagram](../docs/circuit.png)
 
 ---
 
 ## Message Formats
 
-- **Path Message:**  
-  `PATH,<lat>,<lon>,<heading>,<packetNo>`  
-  - `lat`: Latitude  
-  - `lon`: Longitude  
-  - `heading`: Compass heading  
+- **Path Message:**
+  `PATH,<lat>,<lon>,<heading>,<packetNo>`
+  - `lat`: Latitude
+  - `lon`: Longitude
+  - `heading`: Compass heading
   - `packetNo`: Message sequence number
 
-- **Obstacle Message:**  
-  `OBS,<lat>,<lon>,<heading>,<distance>,<packetNo>`  
+- **Obstacle Message:**
+  `OBS,<lat>,<lon>,<heading>,<distance>,<packetNo>`
   - `distance`: Distance to obstacle
 
 ---

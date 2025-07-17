@@ -2,7 +2,7 @@
 
 ## Overview
 
-This documentation folder explains the novel and advanced implementations in the Arduino Navigation & Communication System, focusing on technical details that go beyond standard Arduino tutorials.
+This documentation folder explains the detailed technical implementations in the Arduino Navigation & Communication System, focusing on technical details that go beyond standard Arduino tutorials.
 
 ## Documentation Structure
 

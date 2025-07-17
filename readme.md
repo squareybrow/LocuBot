@@ -1,6 +1,6 @@
 # GPS Mapper Bot Project
 
-A modular, full-stack system for autonomous robot navigation, real-time obstacle detection, secure wireless data transmission, and advanced visualization. This project combines Arduino-based embedded firmware, Python data processing, and Unity-powered 2D visualization, enabling robust field data collection and analysis for robotics research and prototyping.
+A modular system for autonomous robot navigation, real-time obstacle detection, secure wireless data transmission, and advanced visualization. This project combines Arduino-based embedded firmware, Python data processing, and Unity-powered 2D visualization.
 
 ---
 

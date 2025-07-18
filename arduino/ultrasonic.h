@@ -1,20 +1,13 @@
 #ifndef ULTRASONIC_H
 #define ULTRASONIC_H
 
-/**
- * @file ultrasonic.h
- * @brief Ultrasonic sensor interface.
- */
+// Ultrasonic sensor interface
 
-/**
- * @brief Initializes the ultrasonic sensor pins.
- */
+// Initializes the ultrasonic sensor pins
 void initUltrasonic();
 
-/**
- * @brief Measures distance using the ultrasonic sensor.
- * @return Distance in centimeters.
- */
+// Measures distance using the ultrasonic sensor
+// Returns distance in centimeters
 float measureDistance();
 
 #endif

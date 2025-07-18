@@ -3,22 +3,18 @@
 
 //Uses Arduino MEGA 2560
 
-/**
- * @file pins.h
- * @brief Pin assignments for GPS, LoRa, and Ultrasonic modules.
- */
+// Pin assignments for GPS, LoRa, and Ultrasonic modules
+
+// GPS module uses hardware serial port 1 (pins 18 & 19)
 #define GPS_SERIAL Serial1 // RX 18, TX 19
 
-/** @brief LoRa module Slave Select pin */
-constexpr uint8_t LoRa_SS = 53;
-/** @brief LoRa module Reset pin */
-constexpr uint8_t LoRa_RST = 49;
-/** @brief LoRa module DIO0 pin */
-constexpr uint8_t LoRa_DIO0 = 2;
+// LoRa module SPI connections
+constexpr uint8_t LoRa_SS = 53;    // Slave Select pin for SPI communication
+constexpr uint8_t LoRa_RST = 49;   // Reset pin to restart LoRa module
+constexpr uint8_t LoRa_DIO0 = 2;   // Digital I/O pin for LoRa interrupts
 
-/** @brief Ultrasonic sensor trigger pin */
-constexpr uint8_t TRIG_PIN = 40;
-/** @brief Ultrasonic sensor echo pin */
-constexpr uint8_t ECHO_PIN = 41;
+// Ultrasonic sensor HC-SR04 connections
+constexpr uint8_t TRIG_PIN = 40;   // Trigger pin to initiate measurement
+constexpr uint8_t ECHO_PIN = 41;   // Echo pin to receive pulse return
 
 #endif

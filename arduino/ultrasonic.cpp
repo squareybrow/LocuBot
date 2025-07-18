@@ -3,32 +3,33 @@
 #include "constants.h"
 #include "pins.h"
 
-/**
- * @brief Initializes the ultrasonic sensor pins.
- */
+// Initializes the ultrasonic sensor pins
 void initUltrasonic() {
-    pinMode(TRIG_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
+    pinMode(TRIG_PIN, OUTPUT);  // Set trigger pin as output
+    pinMode(ECHO_PIN, INPUT);   // Set echo pin as input
 }
 
-/**
- * @brief Measures distance using the ultrasonic sensor.
- * @return Distance in centimeters. Returns 999 if no reading.
- */
+// Measures distance using the ultrasonic sensor
+// Returns distance in centimeters. Returns 999 if no reading
 float measureDistance() {
+  // Send a clean LOW pulse first
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
+  
+  // Send HIGH pulse for 10 microseconds to trigger measurement
   digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
   
   long ping_travel_time;
 
-  ping_travel_time = pulseIn(ECHO_PIN, HIGH, PULSE_TIMEOUT); // timeout
-  if (ping_travel_time == 0) return 999;  // No signal reading
+  // Measure the time for echo pulse to return with timeout
+  ping_travel_time = pulseIn(ECHO_PIN, HIGH, PULSE_TIMEOUT);
+  if (ping_travel_time == 0) return 999;  // No signal reading (timeout or no obstacle)
 
-  float time = (ping_travel_time / 1E6) / 2;
-  float distance = SOUND_SPEED * time * 100;
+  // Calculate distance: divide by 2 because sound travels to object and back
+  float time = (ping_travel_time / 1E6) / 2;  // Convert microseconds to seconds, then divide by 2
+  float distance = SOUND_SPEED * time * 100;  // Convert meters to centimeters
 
   return distance;
 }

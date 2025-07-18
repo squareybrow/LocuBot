@@ -32,7 +32,7 @@ void loop() {
         if (logPathPoint(msg)) { // Format: "PATH,<lat>,<lon>,<heading>"
           msg += "," + String(packetNo++); // Add packet number
           sendMessage(msg);                // Encrypt and send via LoRa
-          lastPathSent = millis();
+          lastPathSent = millis();         // Update time
         }
       }
     }

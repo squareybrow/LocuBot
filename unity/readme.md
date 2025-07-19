@@ -25,7 +25,7 @@ CSV Data → Unity Loader → Coordinate Conversion → Animation System → Vis
 ## Key Features
 - Replay of Path Taken:  Smooth animation of robot movement along recorded GPS path.
 - Dynamic Trail Rendering: Gradient-colored trail that builds as the robot moves.
-- Obstacle Visualization: Red markers appear with heading orientation when obstacles are detected.
+- Obstacle Visualization: Arrow markers appear with heading orientation when obstacles are detected.
 - Camera Following: Smooth Camera tracking.
 - Coordinate Scaling: Conversion of lat and lon data into Unity world space.
 
@@ -33,7 +33,7 @@ CSV Data → Unity Loader → Coordinate Conversion → Animation System → Vis
 
 ### 1. Unity Hub Installation
 ```bash
-# Download [Unity Hub] from: (https://unity.com/download)
+# Download Unity Hub from: https://unity.com/download
 # Install Unity Editor 2022.3 LTS or higher
 ```
 
@@ -83,7 +83,7 @@ unity/Assets/
 │   └── obs_data.csv                # Obstacle detection data
 ├── Prefabs/
 │   ├── botPrefab.prefab            # Robot representation
-│   └── headingPrefab.prefab        # Obstacle direction indicator
+│   └── headingArrowPrefab.prefab   # Obstacle direction indicator
 ├── Sprites/
 │   ├── heading.png                 # Sprite for heading
 └── └── bot.png                     # Sprite for bot
@@ -200,7 +200,7 @@ IEnumerator MoveBotAlongPath()
 #### 4. Obstacles Not Appearing
 **Problem**: Obstacle arrows don't show
 **Solutions**:
-- Check `obstacleRevealDistance` value (try 0.1f)
+- Check proximity distance value (currently 0.05f in code)
 - Verify obstacle CSV data is valid
 - Ensure arrow prefab is assigned correctly
 - Check obstacle coordinate conversion
